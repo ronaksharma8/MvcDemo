@@ -14,22 +14,30 @@ namespace MvcDemo.Models
         //scalar properties..
         public int ID { get; set; }
 
+        [Required(ErrorMessage = "Name is required")]
         [StringLength(50)]
         public string Name { get; set; }
 
+        [Required(ErrorMessage = "DOB is required")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
+        [DataType(DataType.DateTime)]
         public DateTime DOB { get; set; }
 
         [ForeignKey("gender")]
-        public int GenderId { get; set; }
+        [Required(ErrorMessage = "Gender is required")]
+        public int? GenderId { get; set; }
+
+        [ForeignKey("Manager")]        
+        public int? ManagerID { get; set; }
 
 
-        //navigation properties.
+        //navigation properties.               
 
-        //Foreign key for Standard       
-        
         public virtual Gender gender { get; set; }
+        public virtual Student Manager { get; set; }
 
         public virtual ICollection<Course> Courses { get; set; }
+        public virtual ICollection<Student> SubOrdinates { get; set; }
     }
     
 }

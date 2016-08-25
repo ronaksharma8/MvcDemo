@@ -10,16 +10,18 @@ namespace MvcDemo.Models
 
         public StudentDBContext() : base("name=StudentContext")
         {
-            Database.SetInitializer<StudentDBContext>(new StudentDBInitializer());            
+            //Database.SetInitializer<StudentDBContext>(new StudentDBInitializer());
+            Database.SetInitializer<StudentDBContext>(null);
         }
 
         public DbSet<Student> Students { get; set; }
         public DbSet<Gender> Genders { get; set; }
         public DbSet<Course> Courses { get; set; }
+        public DbSet<StudentAddress> StudentAddresses { get; set; }
 
-        public DbSet<Country> Countries { get; set; }
-        public DbSet<State> States { get; set; }
-        public DbSet<City> Cities { get; set; }
+        //public DbSet<Country> Countries { get; set; }
+        //public DbSet<State> States { get; set; }
+        //public DbSet<City> Cities { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
