@@ -1,0 +1,54 @@
+﻿@model IEnumerable<MvcDemo.Models.Student>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create", new { id = 0, mode="create" })
+</p>
+
+@using (Html.BeginForm())
+{
+    <p>
+        Name: @Html.TextBox("SearchString") &nbsp;&nbsp;&nbsp;
+        Gender : @Html.DropDownList("Gender", null, "--select gender--")                
+        <input type="submit" value="search" />
+    </p>
+}
+ 
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DOB)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.gender)
+        </th>
+        <th>Select</th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DOB)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.gender.Name)   
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Create", new { id=item.ID, mode = "edit" }) |            
+            @Html.ActionLink("Delete", "Create", new { id=item.ID, mode = "delete" })
+        </td>
+    </tr>
+}
+
+</table>
