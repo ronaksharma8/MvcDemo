@@ -32,29 +32,65 @@
             @Html.LabelFor(model => model.DOB, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.DOB, new { htmlAttributes = new { @class = "form-control" } })
+                @*@Html.TextBoxFor(model => model.DOB, new { @Value = Model != null ? Model.DOB.ToString(" dd/MM/yyyy") : "", @class = "" })*@
                 @Html.ValidationMessageFor(model => model.DOB, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.gender, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">                
-                @Html.DropDownListFor(x => x.GenderId, (SelectList)ViewBag.Gender, "-- Select a gender --")                
-                @Html.ValidationMessageFor(x => x.GenderId, "", new { @class = "text-danger" })                
+            <div class="col-md-10">
+                @Html.DropDownListFor(x => x.GenderId, (SelectList)ViewBag.Gender, "-- Select a gender --")<br />
+                @Html.ValidationMessageFor(x => x.GenderId, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.Manager, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(x => x.ManagerID, (SelectList)ViewBag.Manager, "-- Select a manager --")               
+                @Html.DropDownListFor(x => x.ManagerID, (SelectList)ViewBag.Manager, "-- Select a manager --")
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.StudentAddress.Address1, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.StudentAddress.Address1, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.StudentAddress.Address1, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.StudentAddress.Country, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.StudentAddress.Country, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.StudentAddress.Country, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.StudentAddress.State, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.StudentAddress.State, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.StudentAddress.State, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.StudentAddress.City, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.StudentAddress.City, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.StudentAddress.City, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.Courses, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(x => x.ManagerID, (SelectList)ViewBag.Manager, "-- Select a manager --")
+                @{
+                    foreach (var course in (ViewBag.Courses as List<MvcDemo.Models.Course>))
+                    {
+                        <input type="checkbox" name="SelectedCourses" checked="@course.IsChecked" value="@course.ID" /> @course.Name <br />
+                    }
+                }
             </div>
         </div>
 
@@ -64,11 +100,14 @@
                     if (ViewBag.mode == "edit")
                     {
                         <script type="text/javascript">
-                            $(document).ready(function (){
+                            $(document).ready(function () {
                                 $("form :input[type='text']").prop("disabled", false);
+                                $("form :input[type='datetime']").prop("disabled", false);
+                                $("form :input[type='checkbox']").attr("readonly", false);
                                 $("#GenderId").prop("disabled", false);
                                 $("#ManagerID").prop("disabled", false);
-                                $("#DOB").datepicker("option", "disabled", false);
+
+                                //$("#DOB").datepicker("option", "disabled", false);
                             })
                         </script>
 
@@ -77,11 +116,13 @@
                     else if (ViewBag.mode == "delete")
                     {
                         <script type="text/javascript">
-                            $(document).ready(function (){
+                            $(document).ready(function () {
                                 $("form :input[type='text']").prop("disabled", true);
+                                $("form :input[type='datetime']").prop("disabled", true);
+                                $("form :input[type='checkbox']").attr("readonly", true);
                                 $("#GenderId").prop("disabled", true);
                                 $("#ManagerID").prop("disabled", true);
-                                $("#DOB").datepicker("option", "disabled", true);
+                                //$("#DOB").datepicker("option", "disabled", true);
                             })
                         </script>
 
@@ -90,11 +131,13 @@
                     else
                     {
                         <script type="text/javascript">
-                            $(document).ready(function (){
+                            $(document).ready(function () {
                                 $("form :input[type='text']").prop("disabled", false);
+                                $("form :input[type='datetime']").prop("disabled", false);
+                                $("form :input[type='checkbox']").attr("readonly", false);
                                 $("#GenderId").prop("disabled", false);
                                 $("#ManagerID").prop("disabled", false);
-                                $("#DOB").datepicker("option", "disabled", false);
+                                //$("#DOB").datepicker("option", "disabled", false);
                             })
                         </script>
 

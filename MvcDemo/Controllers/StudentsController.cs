@@ -31,7 +31,7 @@ namespace MvcDemo.Controllers
             var lst = db.Students.Where(p => p.Name.Contains(SearchString)).ToList();
 
             if (!string.IsNullOrEmpty(gender))
-                  lst = lst.Where(p => p.GenderId.Value == Convert.ToInt32(gender)).ToList();
+                lst = lst.Where(p => p.GenderId.Value == Convert.ToInt32(gender)).ToList();
 
             return View(lst.ToList());
         }
@@ -44,7 +44,10 @@ namespace MvcDemo.Controllers
             //ViewBag.Gender = db.Genders;
 
             //code to get manager 
-            ViewBag.Manager = new SelectList(db.Students, "ID", "Name");
+            ViewBag.Manager = new SelectList(db.Students.Where(t => t.ID != id), "ID", "Name");
+
+            //code to get courses 
+            ViewBag.Courses = db.Courses.ToList();
 
             if (id != null && Convert.ToInt32(id.Value) > 0)
             {
@@ -58,6 +61,20 @@ namespace MvcDemo.Controllers
                 }
 
                 Student student = db.Students.Find(id);
+
+                //get courses selected..
+                List<Course> lst = new List<Course>();
+                foreach (var item in ViewBag.Courses as List<Course>)
+                {
+                    Course obj = new Course();
+                    obj.ID = item.ID;
+                    obj.Name = item.Name;
+                    obj.IsChecked = db.StudentCourses.Where(p => p.StudentID == id && p.CourseID == item.ID).Count() > 0 ? true : false;
+                    lst.Add(obj);
+                }
+                if (lst.Count > 0)
+                    ViewBag.Courses = lst;
+
                 if (student == null)
                 {
                     return HttpNotFound();
@@ -75,7 +92,7 @@ namespace MvcDemo.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Name,DOB,GenderId,ManagerID")] Student student, string ButtonClick)
+        public ActionResult Create(Student student, string ButtonClick)
         {
             if (student == null)
             {
@@ -87,6 +104,31 @@ namespace MvcDemo.Controllers
 
             //code to get manager 
             ViewBag.Manager = new SelectList(db.Students, "ID", "Name");
+
+            //code to get courses 
+            ViewBag.Courses = db.Courses.ToList();
+
+            List<Course> lst = new List<Course>();
+            foreach (var item in ViewBag.Courses as List<Course>)
+            {
+                Course obj = new Course();
+                obj.ID = item.ID;
+                obj.Name = item.Name;
+                obj.IsChecked = db.StudentCourses.Where(p => p.StudentID == student.ID && p.CourseID == item.ID).Count() > 0 ? true : false;
+                lst.Add(obj);
+            }
+            if (lst.Count > 0)
+                ViewBag.Courses = lst;
+
+
+            if (ButtonClick.ToLower() == "edit")
+            {
+                ViewBag.mode = "edit";
+            }
+            else if (ButtonClick.ToLower() == "delete")
+            {
+                ViewBag.mode = "delete";
+            }
 
             if (Convert.ToInt32(student.ID) > 0)
             {
@@ -101,7 +143,38 @@ namespace MvcDemo.Controllers
                         obj.GenderId = student.GenderId;
                         if (student.ManagerID != null)
                             obj.ManagerID = student.ManagerID;
-                        db.Entry(obj).State = EntityState.Modified;
+                        db.Entry(obj).State = EntityState.Modified;                        
+
+                        //code to studentAddress     
+                        StudentAddress objStudEdit = db.StudentAddresses.Where(p => p.StudentId == student.ID).FirstOrDefault();
+
+                        if (objStudEdit != null)
+                        {
+                            objStudEdit.StudentId = student.ID;
+                            objStudEdit.Address1 = student.StudentAddress.Address1;
+                            objStudEdit.Country = student.StudentAddress.Country;
+                            objStudEdit.State = student.StudentAddress.State;
+                            objStudEdit.City = student.StudentAddress.City;
+                            db.Entry(objStudEdit).State = EntityState.Modified;
+                            obj.StudentAddress = objStudEdit;
+                        }                        
+
+                        if (student.SelectedCourses != null && student.SelectedCourses.Length > 0)
+                        {
+                            //delete and update records in studentCourse tbl..                        
+                            db.StudentCourses.RemoveRange(db.StudentCourses.Where(x => x.StudentID == student.ID));
+
+                            StudentCourse studentCourse = null;
+                            foreach (int item in student.SelectedCourses)
+                            {
+                                studentCourse = new StudentCourse();
+                                studentCourse.StudentID = obj.ID;
+                                studentCourse.CourseID = item;
+                                studentCourse.EnrollmentDate = DateTime.Now;
+                                db.StudentCourses.Add(studentCourse);
+                            }
+                        }
+
                         db.SaveChanges();
                         return RedirectToAction("Index");
                     }
@@ -109,7 +182,17 @@ namespace MvcDemo.Controllers
                 }
                 else
                 {
+                    //remove courses..
+                    db.StudentCourses.RemoveRange(db.StudentCourses.Where(x => x.StudentID == student.ID));
+
+                    //remove Address..
+                    StudentAddress objStudAdd = db.StudentAddresses.Where(p => p.StudentId == student.ID).FirstOrDefault();
+                    if (objStudAdd != null)
+                        db.StudentAddresses.Remove(objStudAdd);
+
+                    //remove student..
                     db.Students.Remove(obj);
+
                     db.SaveChanges();
                     return RedirectToAction("Index");
                 }
@@ -124,7 +207,36 @@ namespace MvcDemo.Controllers
                     obj.GenderId = student.GenderId;
                     if (student.ManagerID != null)
                         obj.ManagerID = student.ManagerID;
+
                     db.Students.Add(obj);
+                    db.SaveChanges();
+
+                    //code to add studentAddress..
+
+                    StudentAddress objStuAdd = new StudentAddress();
+
+                    objStuAdd.StudentId = obj.ID;
+                    objStuAdd.Address1 = student.StudentAddress.Address1;
+                    objStuAdd.Country = student.StudentAddress.Country;
+                    objStuAdd.State = student.StudentAddress.State;
+                    objStuAdd.City = student.StudentAddress.City;
+
+                    db.StudentAddresses.Add(objStuAdd);
+                    db.SaveChanges();
+
+                    if (student.SelectedCourses != null && student.SelectedCourses.Length > 0)
+                    {
+                        StudentCourse studentCourse = null;
+                        foreach (int item in student.SelectedCourses)
+                        {
+                            studentCourse = new StudentCourse();
+                            studentCourse.StudentID = obj.ID;
+                            studentCourse.CourseID = item;
+                            studentCourse.EnrollmentDate = DateTime.Now;
+                            db.StudentCourses.Add(studentCourse);
+                        }
+                    }
+
                     db.SaveChanges();
                     return RedirectToAction("Index");
                 }

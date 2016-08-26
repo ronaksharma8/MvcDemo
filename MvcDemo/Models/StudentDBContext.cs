@@ -10,14 +10,15 @@ namespace MvcDemo.Models
 
         public StudentDBContext() : base("name=StudentContext")
         {
-            //Database.SetInitializer<StudentDBContext>(new StudentDBInitializer());
-            Database.SetInitializer<StudentDBContext>(null);
+            Database.SetInitializer<StudentDBContext>(new StudentDBInitializer());
+            //Database.SetInitializer<StudentDBContext>(null);
         }
 
         public DbSet<Student> Students { get; set; }
         public DbSet<Gender> Genders { get; set; }
         public DbSet<Course> Courses { get; set; }
         public DbSet<StudentAddress> StudentAddresses { get; set; }
+        public DbSet<StudentCourse> StudentCourses { get; set; }
 
         //public DbSet<Country> Countries { get; set; }
         //public DbSet<State> States { get; set; }
@@ -28,16 +29,6 @@ namespace MvcDemo.Models
             //removes plural form from tbl name..
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
 
-            //To rename column name in Bridge Tbl between Student and Course..
-            modelBuilder.Entity<Student>()
-                .HasMany<Course>(s => s.Courses)
-                .WithMany(c => c.Students)
-                .Map(cs =>
-                {
-                    cs.MapLeftKey("StudentId");
-                    cs.MapRightKey("CourseId");
-                    cs.ToTable("StudentCourse");
-                });
         }
     }
 

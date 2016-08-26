@@ -20,6 +20,23 @@
                     return this.optional(element) || !/Invalid|NaN/.test(new Date(value));
                 }
             };
+
+            $('#DOB').keydown(function () {
+                //var code = e.keyCode || e.which;
+                //if (code == '9') {
+                //    return true;
+                //}
+                return false;
+            });
+
+            //$(".hasDatepicker").on("blur", function (e) { $(this).off("focus").datepicker("hide"); });
+
+            //$("#DOB").datepicker({
+            //    onClose: function () {
+            //        this.focus();
+            //    }
+            //});
+
         })
     </script>
 </head>

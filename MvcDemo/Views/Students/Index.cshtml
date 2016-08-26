@@ -13,7 +13,7 @@
 @using (Html.BeginForm())
 {
     <p>
-        Name: @Html.TextBox("SearchString") &nbsp;&nbsp;&nbsp;        
+        Name: @Html.TextBox("SearchString") &nbsp;&nbsp;&nbsp;
         Gender : @Html.DropDownList("Gender", null, "--select gender--")
         <input type="submit" value="search" />
     </p>
@@ -36,24 +36,36 @@
         <th>Select</th>
     </tr>
 
-    @foreach (var item in Model)
+
+    @if (Model.Count() > 0)
+    {
+        foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DOB)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.gender.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Manager.Name)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Create", new { id = item.ID, mode = "edit" }) |
+                    @Html.ActionLink("Delete", "Create", new { id = item.ID, mode = "delete" })
+                </td>
+            </tr>
+        }
+    }
+    else
     {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DOB)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.gender.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Manager.Name)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Create", new { id = item.ID, mode = "edit" }) |
-                @Html.ActionLink("Delete", "Create", new { id = item.ID, mode = "delete" })
+            <td colspan="5">
+                <span> No Record found...</span>
             </td>
         </tr>
     }

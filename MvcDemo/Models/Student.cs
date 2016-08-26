@@ -10,7 +10,8 @@ using System.Web;
 namespace MvcDemo.Models
 {
     public class Student
-    {
+    {       
+       
         //scalar properties..
         public int ID { get; set; }
 
@@ -18,8 +19,7 @@ namespace MvcDemo.Models
         [StringLength(50)]
         public string Name { get; set; }
 
-        [Required(ErrorMessage = "DOB is required")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
+        [Required(ErrorMessage = "DOB is required")]        
         [DataType(DataType.DateTime)]
         public DateTime DOB { get; set; }
 
@@ -36,8 +36,14 @@ namespace MvcDemo.Models
         public virtual Gender gender { get; set; }
         public virtual Student Manager { get; set; }
 
+        public virtual StudentAddress StudentAddress { get; set; }
+
         public virtual ICollection<Course> Courses { get; set; }
         public virtual ICollection<Student> SubOrdinates { get; set; }
+
+        //user defined properties
+        [NotMapped]
+        public int[] SelectedCourses { get; set; }
     }
     
 }
