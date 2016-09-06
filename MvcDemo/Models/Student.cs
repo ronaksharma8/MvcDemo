@@ -19,7 +19,8 @@ namespace MvcDemo.Models
         [StringLength(50)]
         public string Name { get; set; }
 
-        [Required(ErrorMessage = "DOB is required")]        
+        [Required(ErrorMessage = "DOB is required")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         [DataType(DataType.DateTime)]
         public DateTime DOB { get; set; }
 
