@@ -251,5 +251,11 @@ namespace MvcDemo.Controllers
             }
             base.Dispose(disposing);
         }
+
+        //code to add new action method
+        public ActionResult Addstudent(Student objStudent)
+        {
+            return View();
+        }
     }
 }
