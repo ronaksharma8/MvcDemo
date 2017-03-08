@@ -54,15 +54,15 @@ namespace MvcDemo
             //   consumerKey: "",
             //   consumerSecret: "");
 
-            //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
+            app.UseFacebookAuthentication(
+               appId: "1788910014682915",
+               appSecret: "f9d0724325e7e2719133ab35292e075a");
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            {
+                ClientId = "100853322604-98hac2vl8cuti8i2t04og3ccdj0hdokc.apps.googleusercontent.com",
+                ClientSecret = "fTylKxbSYG7u091mZyP9FFHX"
+            });
         }
     }
 }

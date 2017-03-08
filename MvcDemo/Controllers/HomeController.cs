@@ -8,10 +8,11 @@ namespace MvcDemo.Controllers
 {
     public class HomeController : Controller
     {
+        [RequireHttps]
         public ActionResult Index()
         {
             return View();
-        }
+        }        
 
         public ActionResult About()
         {
