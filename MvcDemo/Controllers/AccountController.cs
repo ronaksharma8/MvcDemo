@@ -20,7 +20,11 @@ namespace MvcDemo.Controllers
 
         public AccountController()
         {
+
         }
+
+        //code line1
+
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
         {
