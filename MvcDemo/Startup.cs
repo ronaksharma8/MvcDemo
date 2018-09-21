@@ -8,7 +8,10 @@ namespace MvcDemo
     {
         public void Configuration(IAppBuilder app)
         {
-            ConfigureAuth(app);
+			// testing 
+			
+            ConfigureAuth(app);		
+		
         }
     }
 }
