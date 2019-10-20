@@ -1,3 +1,5 @@
 Hello,
 
 A new file added by another developer directly into dev branch.
+
+Adding directly the code from dev branch from remote server representing another developer has commited into this file.
