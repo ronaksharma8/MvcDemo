@@ -7,5 +7,6 @@ namespace MvcDemo
 {
 	public class Class2
 	{
+		Console.WriteLine("helll")
 	}
 }
