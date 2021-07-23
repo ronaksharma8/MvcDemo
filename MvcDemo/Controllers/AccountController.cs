@@ -15,6 +15,7 @@ namespace MvcDemo.Controllers
     [Authorize]
     public class AccountController : Controller
     {
+		//first line..
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
