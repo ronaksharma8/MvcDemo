@@ -15,8 +15,8 @@ namespace MvcDemo.Controllers
     [Authorize]
     public class AccountController : Controller
     {
+		//adding line from feature-branch..
 		//first line..
-
         //line from command line..
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
