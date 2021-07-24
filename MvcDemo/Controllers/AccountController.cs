@@ -18,6 +18,7 @@ namespace MvcDemo.Controllers
 		//first line..
 
         //line from command line..
+	//adding more cnflicts
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
