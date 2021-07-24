@@ -15,6 +15,7 @@ namespace MvcDemo.Controllers
     [Authorize]
     public class AccountController : Controller
     {
+        // This will be conflicting line when doing cherry-pick
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
