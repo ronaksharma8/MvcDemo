@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace MvcDemo.Models
 {
+    //second line
     public class ExternalLoginConfirmationViewModel
     {
         [Required]
