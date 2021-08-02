@@ -16,7 +16,7 @@ namespace MvcDemo.Controllers
     public class AccountController : Controller
     {
 		//first line..
-
+	//adding lines
         //line from command line..
 	//adding more cnflicts
         private ApplicationSignInManager _signInManager;
