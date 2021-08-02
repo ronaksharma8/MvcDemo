@@ -12,8 +12,16 @@ using MvcDemo.Models;
 
 namespace MvcDemo.Controllers
 {
+    //new asdasd
+    //new commeit measd
+    //removed
+    //fourth time from f11
+    //second time from f11
+    //third time from f11
     //first time from dev
     //hello world alwasasdasd
+    //commit message 1
+    //commit message 2
     [Authorize]
     public class AccountController : Controller
     {
@@ -21,6 +29,10 @@ namespace MvcDemo.Controllers
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
                 
+
+        public AccountController(string pass)
+        {
+        }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
         {
