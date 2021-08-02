@@ -19,6 +19,7 @@ namespace MvcDemo.Controllers
 	//adding lines
         //line from command line..
 	//adding more cnflicts
+    //adding more lines for rebase..
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
