@@ -12,19 +12,15 @@ using MvcDemo.Models;
 
 namespace MvcDemo.Controllers
 {
+    //first time from dev
+    //hello world alwasasdasd
     [Authorize]
     public class AccountController : Controller
     {
-		//first line..
-
-        //line from command line..
-	//adding more cnflicts
+		
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-
-        public AccountController()
-        {
-        }
+                
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
         {
