@@ -12,11 +12,12 @@ using MvcDemo.Models;
 
 namespace MvcDemo.Controllers
 {
+    //Hello world
     [Authorize]
     public class AccountController : Controller
     {
 		//first line..
-
+	//adding lines
         //line from command line..
 	//adding more cnflicts
         private ApplicationSignInManager _signInManager;
