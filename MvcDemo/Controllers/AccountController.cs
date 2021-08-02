@@ -19,6 +19,7 @@ namespace MvcDemo.Controllers
 	//adding lines
         //line from command line..
 	//adding more cnflicts
+    //adding more lines for rebase..
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
@@ -26,6 +27,7 @@ namespace MvcDemo.Controllers
         {
         }
 
+        //add comment
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
         {
             UserManager = userManager;
