@@ -26,6 +26,7 @@ namespace MvcDemo.Controllers
         {
         }
 
+        //add comment
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
         {
             UserManager = userManager;
