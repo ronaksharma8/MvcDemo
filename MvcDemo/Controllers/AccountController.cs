@@ -16,7 +16,7 @@ namespace MvcDemo.Controllers
     public class AccountController : Controller
     {
 		//first line..
-
+        //comment line for testing..
         //line from command line..
         // This will be conflicting line when doing cherry-pick
         private ApplicationSignInManager _signInManager;
