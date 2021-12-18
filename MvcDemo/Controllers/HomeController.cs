@@ -8,6 +8,7 @@ namespace MvcDemo.Controllers
 {
     public class HomeController : Controller
     {
+        //adding tag4
         [RequireHttps]
         public ActionResult Index()
         {
