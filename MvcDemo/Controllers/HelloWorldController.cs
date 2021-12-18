@@ -12,6 +12,7 @@ namespace MvcDemo.Controllers
         // GET: /HelloWorld/ 
         // I am also adding the code from master branch directly from github let see how git fetch and git pull works
         // Adding one more commit master
+        //adding here
         public ActionResult Index()
         {
             return View();
