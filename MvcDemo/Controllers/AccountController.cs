@@ -19,6 +19,7 @@ namespace MvcDemo.Controllers
         //comment line for testing..
         //second line for testing..
         //third commit for testing..
+        //foruth commit
         //line from command line..
         // This will be conflicting line when doing cherry-pick
         private ApplicationSignInManager _signInManager;
