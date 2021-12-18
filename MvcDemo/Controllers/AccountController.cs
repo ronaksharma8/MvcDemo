@@ -15,7 +15,8 @@ namespace MvcDemo.Controllers
     [Authorize]
     public class AccountController : Controller
     {
-		//first line..
+    	//adding direclty from github..
+	//first line..
         //second line..
         //testing
         //comment line for testing..
